@@ -35,7 +35,12 @@ describe('MultisigWallet', function () {
     });
 
     it('should set the owners and required parameters', async function () {
-      const { owner1, owner2, owner3, multisigWallet } = await loadFixture(fixture);
+      const {
+        owner1,
+        owner2,
+        owner3,
+        multisigWallet
+      } = await loadFixture(fixture);
       const owners = await multisigWallet.getOwners();
       const required = await multisigWallet.required();
 
@@ -45,7 +50,13 @@ describe('MultisigWallet', function () {
     });
 
     it('should check that isOwner returns true for the owners', async function () {
-      const { owner1, owner2, owner3, nonOwner, multisigWallet } = await loadFixture(fixture);
+      const {
+        owner1,
+        owner2,
+        owner3,
+        nonOwner,
+        multisigWallet
+      } = await loadFixture(fixture);
 
       expect(await multisigWallet.isOwner(owner1.address)).to.be.true;
       expect(await multisigWallet.isOwner(owner2.address)).to.be.true;
@@ -55,7 +66,7 @@ describe('MultisigWallet', function () {
 
     it('should revert when deploying with invalid owners or required confirmations', async function () {
       const MultisigWallet = await ethers.getContractFactory('MultisigWallet');
-      
+
       await expect(MultisigWallet.deploy([], 1)).to.be.revertedWithCustomError(MultisigWallet, 'InvalidOwners');
       await expect(MultisigWallet.deploy([ethers.ZeroAddress], 1)).to.be.revertedWithCustomError(MultisigWallet, 'InvalidOwners');
       await expect(MultisigWallet.deploy([ethers.Wallet.createRandom().address, ethers.Wallet.createRandom().address], 0)).to.be.revertedWithCustomError(MultisigWallet, 'InvalidRequiredConfirmations');
@@ -109,7 +120,10 @@ describe('MultisigWallet', function () {
       const data = '0x';
 
       // First we need to top up the wallet
-      await owner1.sendTransaction({ to: multisigWallet.getAddress(), value: ethers.parseEther('10') });
+      await owner1.sendTransaction({
+        to: multisigWallet.getAddress(),
+        value: ethers.parseEther('10')
+      });
 
       await multisigWallet.connect(owner1).submitTransaction(ethers.ZeroAddress, to, value, data);
       await multisigWallet.connect(owner1).confirmTransaction(0);
@@ -141,7 +155,12 @@ describe('MultisigWallet', function () {
     });
 
     it('should handle ERC20 token transfers', async function () {
-      const { owner1, owner2, multisigWallet, testToken } = await loadFixture(fixture);
+      const {
+        owner1,
+        owner2,
+        multisigWallet,
+        testToken
+      } = await loadFixture(fixture);
       const to = ethers.Wallet.createRandom().address;
       const value = ethers.parseEther('10');
       const data = '0x';
@@ -156,7 +175,12 @@ describe('MultisigWallet', function () {
     });
 
     it('should handle ERC20 token transfers with additional data', async function () {
-      const { owner1, owner2, multisigWallet, testToken } = await loadFixture(fixture);
+      const {
+        owner1,
+        owner2,
+        multisigWallet,
+        testToken
+      } = await loadFixture(fixture);
       const to = ethers.Wallet.createRandom().address;
       const value = ethers.parseEther('10');
       const data = testToken.interface.encodeFunctionData('approve', [to, value]);
@@ -240,7 +264,10 @@ describe('MultisigWallet', function () {
       const { owner1, multisigWallet } = await loadFixture(fixture);
       const value = ethers.parseEther('1');
 
-      await expect(owner1.sendTransaction({ to: multisigWallet.getAddress(), value }))
+      await expect(owner1.sendTransaction({
+        to: multisigWallet.getAddress(),
+        value
+      }))
         .to.emit(multisigWallet, 'Deposit')
         .withArgs(owner1.address, value);
 
@@ -250,7 +277,12 @@ describe('MultisigWallet', function () {
 
   describe('Helper functions', function () {
     it('should return the correct list of owners', async function () {
-      const { owner1, owner2, owner3, multisigWallet } = await loadFixture(fixture);
+      const {
+        owner1,
+        owner2,
+        owner3,
+        multisigWallet
+      } = await loadFixture(fixture);
       const owners = await multisigWallet.getOwners();
 
       expect(owners).to.have.length(3);

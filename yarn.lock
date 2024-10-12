@@ -4412,6 +4412,7 @@ __metadata:
     ethers: "npm:^6.4.0"
     hardhat: "npm:^2.22.13"
     hardhat-gas-reporter: "npm:^1.0.8"
+    openzeppelin-legacy: "npm:@openzeppelin/contracts@4.8.3"
     solidity-coverage: "npm:^0.8.0"
     ts-node: "npm:>=8.0.0"
     typechain: "npm:^8.3.0"
@@ -4584,6 +4585,13 @@ __metadata:
   dependencies:
     wrappy: "npm:1"
   checksum: 10c0/5d48aca287dfefabd756621c5dfce5c91a549a93e9fdb7b8246bc4c4790aa2ec17b34a260530474635147aeb631a2dcc8b32c613df0675f96041cbb8244517d0
+  languageName: node
+  linkType: hard
+
+"openzeppelin-legacy@npm:@openzeppelin/contracts@4.8.3":
+  version: 4.8.3
+  resolution: "@openzeppelin/contracts@npm:4.8.3"
+  checksum: 10c0/1f80772c4e5b4f495ad0863663d5e1fd5315aec8b3886371f610dab41e96c3699eff631c66eedbc1f47a3df3010c17fa9ce217d9350e5ef070232c6386a7a40d
   languageName: node
   linkType: hard
 
